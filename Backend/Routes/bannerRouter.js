@@ -30,7 +30,7 @@ router.get('/data', async (req, res) => {
    combined.forEach((item)=>{
       nameArry.push({_id:item._id,title:item.title});
    })
-  //  console.log(nameArry);
+   console.log(nameArry);
 
 
 

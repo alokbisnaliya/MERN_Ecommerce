@@ -1,19 +1,11 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/ReactEcommerce')
-.then(()=>{
-    console.log("Db connected")
-})
-.catch((error)=>{
-  console.log(error);
-})
-
-
-
-
-
-module.exports = mongoose.connection;
-
-
-
-
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log('✅ Connected to MongoDB Atlas');
+    // server listen code yahan
+  })
+  .catch((err) => {
+    console.log('❌ MongoDB connection error:', err);
+  });
