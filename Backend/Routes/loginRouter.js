@@ -2,9 +2,7 @@ const express = require("express");
 const usermodel = require('../models/usermodel');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-
-// No need to import dotenv here, bas main file me imported hona chahiye
+const bcryptjs = require('bcryptjs');
 
 router.post('/', async (req, res) => {
   const { email, password } = req.body;
@@ -17,11 +15,10 @@ router.post('/', async (req, res) => {
     if (!user)
       return res.status(404).json({ message: "email not registered" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch)
       return res.status(400).json({ message: "incorrect password" });
 
-    // ✅ Environment variable se JWT_SECRET lena
     const jwtSecret = process.env.JWT_SECRET || "fallback-secret";
 
     let token = await jwt.sign(
