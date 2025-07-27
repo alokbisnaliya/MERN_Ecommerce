@@ -9,7 +9,10 @@ const isAuthenticated = (req, res, next) => {
             return res.status(401).json({ message: 'login required.' });
         }
 
-        const decoded = jwt.verify(token, "your_secret_key");
+        // ✅ JWT secret from environment variable
+        const jwtSecret = process.env.JWT_SECRET || "fallback-secret";
+
+        const decoded = jwt.verify(token, jwtSecret);
         req.user = decoded; // Attach decoded user data to the request
         next();
     } catch (error) {
