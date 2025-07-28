@@ -14,7 +14,7 @@ require('./config/mongoooseConnection');
 
 // CORS Middleware
 app.use(cors({
-  origin: "https://mern-ecommerce-tau-nine.vercel.app", // ✅ slash hata diya
+  origin: process.env.CLIENT_URL,
   credentials: true
 }));
 
