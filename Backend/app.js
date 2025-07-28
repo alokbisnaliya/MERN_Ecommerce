@@ -28,7 +28,12 @@ app.use('/login', require('./Routes/loginRouter'));
 app.use('/api/products', require('./Routes/productRouter'));
 app.use('/api/products/filter', require('./Routes/productsFilterRouter'));
 app.use('/api/categories', require('./Routes/categoryRouter'));
+
+
+// recommandedby product route_->
 app.use('/api/product', require('./Routes/findProductRouter'));
+
+
 app.use('/api/search', require('./Routes/searchRouter'));
 app.use('/api/banner', require('./Routes/bannerRouter'));
 

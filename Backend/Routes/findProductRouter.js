@@ -7,41 +7,39 @@ const router = express.Router();
 router.get('/recommandation', async (req, res) => {
   const { recommandBy } = req.query;
 
-  // const RandomNumber = (min, max) => {
-  //   return Math.floor(Math.random() * (max - min + 1)) + min
-  // }
-
-  // let skip = RandomNumber(5, 15);
-
   try {
-    if (recommandBy) {
-      let products = await productmodel.aggregate([
-        {
-          $match: {
-            category: { $regex: new RegExp(recommandBy, "i") }
-          }
-        },
-        {
-          $sample: { size: 10 }
-        }
-      ]);
-
-      // console.log(products.length)
-      if (products.length > 0) {
-        res.status(200).json({ products })
-      } else {
-        return res.status(404).json({ message: "No Recommandation" })
-      }
+    if (!recommandBy || recommandBy.trim() === "") {
+      return res.status(400).json({ message: "Missing recommandBy in query" });
     }
 
+    const trimmedCategory = recommandBy.trim();
 
+    console.log("🔍 recommandBy:", trimmedCategory); // Debug
+
+    const products = await productmodel.aggregate([
+      {
+        $match: {
+          category: { $regex: new RegExp(`^${trimmedCategory}`, "i") }
+        }
+      },
+      {
+        $sample: { size: 10 }
+      }
+    ]);
+
+    console.log("🔢 Matched products:", products.length); // Debug
+
+    if (products.length > 0) {
+      return res.status(200).json({ products });
+    } else {
+      return res.status(404).json({ message: "No Recommendation" });
+    }
   } catch (error) {
-    console.error("Recommandation Error:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("❌ Recommendation Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
+});
 
-
-})
 
 router.get('/:id', async (req, res) => {
   let id = req.params.id;
