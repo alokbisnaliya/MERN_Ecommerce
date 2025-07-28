@@ -27,7 +27,7 @@ router.get('/recommandation', async (req, res) => {
       }
     ]);
 
-    console.log("🔢 Matched products:", products.length); // Debug
+    // console.log("🔢 Matched products:", products.length); // Debug
 
     if (products.length > 0) {
       return res.status(200).json({ products });

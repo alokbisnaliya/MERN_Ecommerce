@@ -64,7 +64,7 @@ const Product = () => {
         const data = await res.json();
         if (res.ok && data.product && data.product.category) {
           setProduct(data.product);
-          console.log(data.product.category)
+          // console.log(data.product.category)
           setRecommendBy(data.product.category);
         } else {
           console.log(data.message);

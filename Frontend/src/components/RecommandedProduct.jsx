@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const RecommendedProduct = ({ recommendedData, handleRefresh }) => {
-  if (!recommendedData || recommendedData.length === 0) {
+
+const RecommendedProduct = ({ recommandedData, handleRefresh }) => {
+  if (!recommandedData || recommandedData.length === 0) {
     return (
       <div className="text-center text-gray-500">
         No similar products found.
@@ -14,7 +15,7 @@ const RecommendedProduct = ({ recommendedData, handleRefresh }) => {
     <section className="p-4">
       <h2 className="text-xl font-bold mb-4">Recommended Products</h2>
       <div className="flex flex-wrap gap-6 justify-center">
-        {recommendedData.map((item) => (
+        {recommandedData.map((item) => (
           <Link
             key={item._id}
             to={`/product/${item._id}`}
