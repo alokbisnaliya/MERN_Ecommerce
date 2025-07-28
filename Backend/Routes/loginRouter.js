@@ -21,15 +21,22 @@ router.post('/', async (req, res) => {
 
     const jwtSecret = process.env.JWT_SECRET || "fallback-secret";
 
-    let token = await jwt.sign(
+    let token = jwt.sign(
       { name: user.name, role: user.role, id: user._id },
       jwtSecret
     );
 
-    res.cookie("token", token);
+    // ✅ Fix applied here
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+
     res.status(200).json({ message: "login successful", role: user.role });
 
   } catch (error) {
+    console.error("Login error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });

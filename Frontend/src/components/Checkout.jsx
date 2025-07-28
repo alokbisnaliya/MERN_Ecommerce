@@ -65,6 +65,8 @@ const Checkout = () => {
       });
     }
 
+    console.log({"from checkout file":isLoggedin})
+
     if (!isLoggedin) {
       return toast.error('Please login first', {
         position: 'top-center',

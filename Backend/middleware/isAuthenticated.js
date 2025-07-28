@@ -10,7 +10,7 @@ const isAuthenticated = (req, res, next) => {
         }
 
         // ✅ JWT secret from environment variable
-        const jwtSecret = process.env.JWT_SECRET || "fallback-secret";
+        const jwtSecret = process.env.JWT_SECRET ;
 
         const decoded = jwt.verify(token, jwtSecret);
         req.user = decoded; // Attach decoded user data to the request
