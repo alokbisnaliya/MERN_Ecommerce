@@ -28,10 +28,11 @@ const Product = () => {
   // Fetch recommended products
   const fetchRecommendedProducts = async (category) => {
     try {
-      const res = await fetch(`${baseURL}/api/product/recommandation?recommandBy=${category}`, {
+      const res = await fetch(`${baseURL}/api/product/recommandation?recommandBy=${encodeURIComponent(category)}`, {
         method: 'GET',
         credentials: 'include',
       });
+
       const data = await res.json();
       if (res.ok) {
         setRecommendedData(data.products);
